@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PIC</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="displayNameLabel">Display Name :</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="logo">Logo</string>
+    <string name="nameHint">Enter your display name</string>
+    <string name="warning_label">We are not responsible for anything said in the chats. Please be respectful and avoid offensive comments.</string>
+    <string name="findServer">Find Servers</string>
+    <string name="title_activity_chat">#Channel</string>
+    <string name="send">Send</string>
+
+</resources>
