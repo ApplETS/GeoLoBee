@@ -1,7 +1,11 @@
 package com.applets.pic.http;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.location.LocationManager;
 
@@ -46,21 +50,26 @@ public class InfosServerProvider {
 	}
 
 	public String[] getClosestServerInfos() {
-		HttpReader task = (HttpReader)new HttpReader().execute("http://18.111.95.249/php/api.php?method=getDefaultChannel&lat=42.357&lon=-71.0901");
-		String[] availableChannels = new String[] {};
+		HttpReader task = (HttpReader)new HttpReader().execute("http://18.111.110.125/php/api.php?method=getDefaultChannel&lat=42.357&lon=-71.0901");
+		ArrayList<String> availableChannels = new ArrayList<String>();
 		String serverInfos;
 		try {
 			serverInfos = task.get(15, TimeUnit.SECONDS);
 			if(serverInfos != null && !serverInfos.isEmpty()) {
-				availableChannels = serverInfos.split(",");
-				return availableChannels;
+				JSONArray recs = new JSONArray(serverInfos);
+				
+				for (int i = 0; i < recs.length(); ++i) {
+				    JSONObject rec = recs.getJSONObject(i);
+				    availableChannels.add(rec.getString("name"));
+				}
+				return (String[]) availableChannels.toArray(new String[availableChannels.size()]);
 			}
 		} catch (TimeoutException e) {
 			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return availableChannels;
+		return (String[]) availableChannels.toArray(new String[availableChannels.size()]);
 	}
 	
 //	public String[] getSubChannels(String channel) {
