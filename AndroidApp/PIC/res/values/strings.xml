@@ -16,5 +16,10 @@
     <string name="findServer">Find Servers</string>
     <string name="title_activity_chat">#Channel</string>
     <string name="send">Send</string>
+    <string name="error_no_display_name">Please enter your display name.</string>
+    <string name="error_no_display_name_title">Missing Name</string>
+    <string name="error_connection_infos_server_title">Connection Error</string>
+    <string name="error_connection_infos_server_timeout">The connection to the dispatch server has timed out. Please try again later.</string>
+    <string name="error_connection_infos_server_unknown">The connection to the dispatch server has failed for an unknown reason. Please try again later.</string>
 
 </resources>
