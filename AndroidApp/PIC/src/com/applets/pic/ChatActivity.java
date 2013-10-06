@@ -2,8 +2,6 @@ package com.applets.pic;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.applets.pic.irc.IRCClient;
@@ -43,6 +42,7 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 	@Override
 	protected void onDestroy() {
 		ircClient.part(currentChannel);
+		ircClient.quit();
 		super.onDestroy();
 	}
 
@@ -162,6 +162,7 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 	    textView.setText(mergedMessaged);
 	    this.runOnUiThread(new AddTextViewToMessagesListRunnable(textView));
 	}
+	
 
 	@Override
 	public void ClientCreated(IRCClient client) {

@@ -67,17 +67,29 @@ public class IRCClient {
     	send("PART #" + channel);
     }
     
+    public void quit() {
+    	send("QUIT");
+    }
+    
     public void sendMessage(String channel, String message) {
     	send("PRIVMSG #"+channel+" :"+message);
     }
 
     public User parseEventSource(String source) {
 		User sourceUser;
-		String tempUserData = source.split(":")[1];
-		if (tempUserData.indexOf('!') >= 0) {
-			sourceUser = new User(tempUserData.split("!")[0]);
-		} else
-			sourceUser = new User(tempUserData);
+		if(source.contains(":")){
+			String tempUserData = source.split(":")[1];
+			if (tempUserData.indexOf('!') >= 0) {
+				sourceUser = new User(tempUserData.split("!")[0]);
+			} 
+			else{
+				sourceUser = new User(tempUserData);
+			}
+		}
+		else {
+			sourceUser = new User(source);
+		}
+    
 		return sourceUser;
     }
 

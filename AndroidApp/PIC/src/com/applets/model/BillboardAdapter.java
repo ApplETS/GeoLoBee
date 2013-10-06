@@ -34,8 +34,8 @@ public class BillboardAdapter extends ArrayAdapter<Post>{
             row = inflater.inflate(layoutResourceId, parent, false);
             
             holder = new PostHolder();
-            holder.creator = (TextView)row.findViewById(R.id.firstLine);
-            holder.content = (TextView)row.findViewById(R.id.secondLine);
+            holder.content = (TextView)row.findViewById(R.id.firstLine);
+            holder.creator = (TextView)row.findViewById(R.id.secondLine);
             
             row.setTag(holder);
         }
