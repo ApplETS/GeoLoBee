@@ -2,6 +2,7 @@
 if(isset($_GET["method"])){
     $dbh = createConnection();
     $method = $_GET["method"];
+    /*** Start of chat calls ***/
     if($method === "getDefaultChannel") {
         $lat = $_GET["lat"];
         $lon = $_GET["lon"];
@@ -14,10 +15,31 @@ if(isset($_GET["method"])){
     elseif($method === "createSubChannel") {
         $channel_name = $_GET["channel_name"];
         $sub_channel_name = $_GET["sub_channel_name"];
-        echo createSubChannel($dbh, $channel_name, $sub_channel_name);
+        print createSubChannel($dbh, $channel_name, $sub_channel_name);
+    }
+    /*** End of chat calls ***/
+    /*** Start of post calls ***/
+    elseif($method === "createPost") {
+        $creator = $_GET["creator"];
+        $content = $_GET["content"];
+        if(isset($_GET["picture"])) {
+            $picture = $_GET["picture"];
+        }
+        else {
+            $picture = NULL;
+        }
+        $dateToKill = $_GET["date_to_kill"];
+        print createPost($dbh, $creator, $content, $picture, $dateToKill);
+    }
+    elseif($method === "getPosts") {
+        print getPosts($dbh);
     }
 }
 
+
+ /************************************************************************
+ **************          START OF CHAT API                   *************
+ ************************************************************************/
 
 function createConnection() {
     // Connects to your Database
@@ -52,7 +74,7 @@ function getDefaultChannel($dbh, $lat, $lon) {
             $institutionName = getInstitutionNameById($dbh, $info['institution_id']);
             $subChannels = getSubChannels($dbh, $institutionName);
 
-            $response = $institutionName;
+            $response = json_encode($institutionName);
 
             if($subChannels !== 'null') {
                 $response = $subChannels;
@@ -109,19 +131,12 @@ function getSubChannels($dbh, $channel_name, $institution_id = -1){
             $response = "";
 
             //We add all the subchannels
-            while($info = $sth->fetch(PDO::FETCH_ASSOC)) {
-                //If it's the first subchannel, we assign response to it
-                if($response === "") {
-                    $response = $info['name'];
-                }
-                //Else, we add a comma before we add the subchannel
-                else {
-                    $response = $response . ',' . $channel_name . "." . $info['name'];
-                }
-
+            $rows = array();
+            while($r = $sth->fetch(PDO::FETCH_ASSOC)) {
+                $rows[] = $r;
             }
 
-            return $response;
+            return json_encode($rows);
         }
     }
     return "null";
@@ -162,5 +177,47 @@ function createSubChannel($dbh, $channel_name, $sub_channel_name) {
         }
     }
 }
+ /************************************************************************
+ **************           END OF CHAT API                    *************
+ ************************************************************************/
 
+
+ /************************************************************************
+ **************        START OF BILLBOARD API                *************
+ ************************************************************************/
+
+//Creates a post on the billboard with a date to kill it
+function createPost($dbh, $creator, $content, $picture, $dateToKill) {
+        //If a picture was sent, we transform the picture to make it uploadable in the database
+        if($picture != NULL) {
+            $pSize = filesize($picture);
+            $mysqlPicture = addslashes(fread(fopen($picture, "r"), $pSize));
+        }
+        //Else we put it to NULL
+        else {
+            $mysqlPicture = NULL;
+        }
+        //We add the post
+        $sql = "INSERT INTO POSTS (creator, content, picture, dateToKill) VALUES (:creator,:content,:picture,:dateToKill)";
+                     $sth = $dbh->prepare($sql);
+                     $sth->execute(array(':creator'=>$creator,
+                                       ':content'=>$content,
+                                       ':picture'=>$mysqlPicture,
+                                       ':dateToKill'=>$dateToKill));
+}
+
+//Returns the posts that can be shown
+function getPosts($dbh) {
+    $sth = $dbh->query('SELECT creator, content, picture, dateToKill FROM POSTS WHERE dateToKill > NOW();');
+
+    $rows = array();
+    while($r = $sth->fetch(PDO::FETCH_ASSOC)) {
+        $rows[] = $r;
+    }
+    return json_encode($rows);
+}
+
+ /************************************************************************
+ **************         END OF BILLBOARD API                 *************
+ ************************************************************************/
 ?>

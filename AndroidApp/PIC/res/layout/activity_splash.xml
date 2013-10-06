@@ -16,7 +16,7 @@
         android:layout_width="187dp"
         android:layout_height="236dp"
         android:contentDescription="@string/logo"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_logo" />
 
     <EditText
         android:id="@+id/editName"
