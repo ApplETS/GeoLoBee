@@ -41,6 +41,12 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 	private EditText editMessageBlock;
 	
 	@Override
+	protected void onDestroy() {
+		ircClient.part(currentChannel);
+		super.onDestroy();
+	}
+
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);

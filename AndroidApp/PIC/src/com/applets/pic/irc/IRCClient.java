@@ -143,7 +143,7 @@ public class IRCClient {
 					    else if(command.equals("PART")) { // User or Me joins channel
 			
 						    if (source.getName().equals(my_username)) { //I just parted
-								channelSource = arr[2].split(":")[1];
+								channelSource = arr[2];
 								myChannels.remove(new Channel(channelSource));
 								ie.channelParted(channelSource);
 						    } else { //someone just parted
