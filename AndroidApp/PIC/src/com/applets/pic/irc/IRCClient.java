@@ -63,8 +63,12 @@ public class IRCClient {
     	send("JOIN #" + channel);
     }
 
+    public void part(String channel) {
+    	send("PART #" + channel);
+    }
+    
     public void sendMessage(String channel, String message) {
-    	send("PRIVMSG "+channel+" :"+message);
+    	send("PRIVMSG #"+channel+" :"+message);
     }
 
     public User parseEventSource(String source) {

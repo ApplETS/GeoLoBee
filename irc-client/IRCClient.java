@@ -24,7 +24,8 @@ public class IRCClient {
 	//	new IRCClient();
     }
 
-    public IRCClient(IRCEvent event) {
+    public IRCClient(IRCEvent event, String username) {
+    this.my_username = username;
 	ie = event;
 	connect();
     }

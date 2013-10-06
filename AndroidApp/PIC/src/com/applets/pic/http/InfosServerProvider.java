@@ -50,7 +50,7 @@ public class InfosServerProvider {
 	}
 
 	public String[] getClosestServerInfos() {
-		HttpReader task = (HttpReader)new HttpReader().execute("http://18.111.110.125/php/api.php?method=getDefaultChannel&lat=42.357&lon=-71.0901");
+		HttpReader task = (HttpReader)new HttpReader().execute("http://18.111.95.249/php/api.php?method=getDefaultChannel&lat=42.357&lon=-71.0901");
 		ArrayList<String> availableChannels = new ArrayList<String>();
 		String serverInfos;
 		try {

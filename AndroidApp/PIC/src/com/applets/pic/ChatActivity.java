@@ -4,9 +4,6 @@ import com.applets.pic.irc.IRCClient;
 import com.applets.pic.irc.IRCConnecter;
 import com.applets.pic.irc.IRCEvent;
 import com.applets.pic.irc.IWaitingIRCClientCreated;
-import com.example.android.navigationdrawerexample.R;
-import com.example.android.navigationdrawerexample.MainActivity.DrawerItemClickListener;
-import com.example.android.navigationdrawerexample.MainActivity.PlanetFragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,8 +18,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,6 +36,9 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 	private LinearLayout messagesLayout;
 	private DrawerLayout drawerLayout;
 	private Boolean clientIsReadyToJoin = false;
+	private String currentChannel;
+	private Button sendButton;
+	private EditText editMessageBlock;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 		
 		drawerList = (ListView)findViewById(R.id.left_drawer);
 		messagesLayout = (LinearLayout)findViewById(R.id.layoutListView);
+		sendButton = (Button)findViewById(R.id.buttonSend);
+		editMessageBlock = (EditText)findViewById(R.id.editMessage);
 	
 		if(availableChannels != null && availableChannels.length > 0) {
 			getActionBar().setTitle(availableChannels[0]);
@@ -86,8 +91,10 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 	public void registrationComplete() {
 		if(ircClient != null) {
 			//ircClient.join(availableChannels[0]);
-			ircClient.join("foobar");
+			currentChannel = "foobar";
+			ircClient.join(currentChannel);
 			clientIsReadyToJoin = false;
+			sendButton.setOnClickListener(new SendbuttonOnClickListener());
 		}
 		else{
 			clientIsReadyToJoin = true;
@@ -126,23 +133,23 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 		String message = "You have joined channel " + channel + ".";
 		Log.i("IRC", "Received message: " + message);
 		LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    TextView textView = (TextView)inflater.inflate(R.layout.received_red_message, null, true);
+	    TextView textView = (TextView)inflater.inflate(R.layout.received_info_message, null, true);
 	    textView.setText(message);
 	    this.runOnUiThread(new AddTextViewToMessagesListRunnable(textView));
 	}
 
 	@Override
 	public void channelParted(String channel) {
-		String message = "You have left channel " + channel + ".";
+		/*String message = "You have left channel " + channel + ".";
 		LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    TextView textView = (TextView)inflater.inflate(R.layout.received_red_message, null, true);
 	    textView.setText(message);
-	    this.runOnUiThread(new AddTextViewToMessagesListRunnable(textView));
+	    this.runOnUiThread(new AddTextViewToMessagesListRunnable(textView));*/
 	}
 
 	@Override
 	public void messageReceived(String channel, String user, String message) {
-		String mergedMessaged = user + ": " + message;
+		String mergedMessaged = user + message;
 		Log.i("IRC", "Received message: " + mergedMessaged);
 		LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    TextView textView = (TextView)inflater.inflate(R.layout.received_message, null, true);
@@ -160,7 +167,20 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 	
 	private void selectItem(int position) {
         this.messagesLayout.removeAllViews();
+        ircClient.part(currentChannel);
+        currentChannel = availableChannels[position];
+        ircClient.join(currentChannel);
+        getActionBar().setTitle(currentChannel);
     }
+	
+	private void ShowSentMessage(String message) {
+		String messageStr = displayName + ": " + message;
+		Log.i("IRC", "Received message: " + message);
+		LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	    TextView textView = (TextView)inflater.inflate(R.layout.sent_message_text_view, null, true);
+	    textView.setText(messageStr);
+	    this.runOnUiThread(new AddTextViewToMessagesListRunnable(textView));
+	}
 	
 	private class AddTextViewToMessagesListRunnable implements Runnable{
 
@@ -182,6 +202,18 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 		public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 			selectItem(position);			
 		}	
+	}
+	
+	private class SendbuttonOnClickListener implements OnClickListener {
+
+		@Override
+		public void onClick(View arg0) {
+			String message = editMessageBlock.getText().toString();
+			ircClient.sendMessage(currentChannel, message);
+			ShowSentMessage(message);
+			editMessageBlock.setText("");
+		}
+		
 	}
 
 }
