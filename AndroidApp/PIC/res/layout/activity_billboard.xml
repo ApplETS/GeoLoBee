@@ -16,7 +16,7 @@
         android:text="@string/chat" />
     
     <ListView android:id="@+id/listBillboard"
-        android:layout_width="240dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/buttonChat"
         android:layout_gravity="start"
