@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 
 public class IRCClient {
-    private final String SERVER = "18.111.93.165";
+    private final String SERVER = "18.111.95.249";
     private final int PORT = 6667;
     private String my_username = "myself";
 
