@@ -13,6 +13,11 @@ public class foo implements IRCEvent {
     public void registrationComplete (){
 	client.join("#foobar");
 	client.join("#barbaz");
+	client.sendMessage("#foobar", "test");
+	client.sendMessage("#barbaz", "test1");
+    }
+    public void messageRecieved (String channel, String user, String message) {
+	System.out.println(channel+" <"+user+"> "+message);
     }
     public void userQuit (String user) {
 	System.out.println("User "+user+" has quit the server");

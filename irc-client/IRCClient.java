@@ -60,6 +60,10 @@ public class IRCClient {
 	send("JOIN " + channel);
     }
 
+    public void sendMessage(String channel, String message) {
+	send("PRIVMSG "+channel+" :"+message);
+    }
+
     public User parseEventSource(String source) {
 	User sourceUser;
 	String tempUserData[] = source.split(":")[1].split("!");
@@ -106,6 +110,8 @@ public class IRCClient {
 			case "PRIVMSG": // message (channel&priv)
 			    channelSource = arr[2];
 			    channel = findChannelByName(channelSource);
+			    int beginningOfMessage = input.indexOf(':', 2);
+			    ie.messageRecieved(channel.getName(), source.getName(), input.substring(beginningOfMessage));
 			    //System.out.println("users in channel:" + channel.getUsers().size());
 			    //for (int i = 0; i <= channel.getUsers().size() -1; i++)
 				//System.out.println(channel.getUsers().get(i).getName());
