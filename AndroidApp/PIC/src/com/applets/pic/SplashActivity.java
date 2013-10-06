@@ -1,18 +1,20 @@
 package com.applets.pic;
 
-import com.applets.pic.http.InfosServerProvider;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.location.LocationManager;
+
+import com.applets.pic.http.InfosServerProvider;
 
 public class SplashActivity extends Activity {
 
@@ -23,6 +25,10 @@ public class SplashActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//Remove title bar
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
 		setContentView(R.layout.activity_splash);
 		
 		infosProvider = new InfosServerProvider((LocationManager)getSystemService(Context.LOCATION_SERVICE));

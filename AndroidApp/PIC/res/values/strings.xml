@@ -11,9 +11,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_splash">GeoLoBee</string>
     <string name="logo">Logo</string>
-    <string name="nameHint">Enter your display name</string>
+    <string name="nameHint">Enter your username</string>
     <string name="warning_label">We are not responsible for anything said in the chats. Please be respectful and avoid offensive comments.</string>
-    <string name="findServer">Find Servers</string>
+    <string name="connect">Connect</string>
     <string name="title_activity_chat">#Channel</string>
     <string name="send">Send</string>
     <string name="error_no_display_name">Please enter your display name.</string>
