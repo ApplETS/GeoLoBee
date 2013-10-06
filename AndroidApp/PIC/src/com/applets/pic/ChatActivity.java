@@ -49,6 +49,7 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 		availableChannels = getIntent().getExtras().getStringArray("CHANNELS");
 		
 		drawerList = (ListView)findViewById(R.id.left_drawer);
+		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		messagesLayout = (LinearLayout)findViewById(R.id.layoutListView);
 		sendButton = (Button)findViewById(R.id.buttonSend);
 		editMessageBlock = (EditText)findViewById(R.id.editMessage);
@@ -90,7 +91,8 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 	@Override
 	public void registrationComplete() {
 		if(ircClient != null) {
-			ircClient.join(availableChannels[0]);
+			currentChannel = availableChannels[0];
+			ircClient.join(currentChannel);
 			clientIsReadyToJoin = false;
 			sendButton.setOnClickListener(new SendbuttonOnClickListener());
 		}
@@ -103,7 +105,7 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 	public void userQuit(String user) {
 		String message = "User " + user + " has left the server.";
 		LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    TextView textView = (TextView)inflater.inflate(R.layout.sent_message_text_view, null, true);
+	    TextView textView = (TextView)inflater.inflate(R.layout.received_red_message, null, true);
 	    textView.setText(message);
 	    this.runOnUiThread(new AddTextViewToMessagesListRunnable(textView));
 	}
@@ -163,9 +165,9 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 		}
 	}
 	
-	
 	private void selectItem(int position) {
         this.messagesLayout.removeAllViews();
+        drawerLayout.closeDrawer(drawerList);
         ircClient.part(currentChannel);
         currentChannel = availableChannels[position];
         ircClient.join(currentChannel);
@@ -174,7 +176,7 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 	
 	private void ShowSentMessage(String message) {
 		String messageStr = displayName + ": " + message;
-		Log.i("IRC", "Received message: " + message);
+		Log.i("IRC", "Sent message: " + message);
 		LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    TextView textView = (TextView)inflater.inflate(R.layout.sent_message_text_view, null, true);
 	    textView.setText(messageStr);
