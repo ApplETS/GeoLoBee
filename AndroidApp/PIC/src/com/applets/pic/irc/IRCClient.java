@@ -137,9 +137,6 @@ public class IRCClient {
 						    } else { //someone just joined
 								channel = findChannelByName(channelSource);
 								channel.addUser(source);
-								//System.out.println("users in channel:" + channel.getUsers().size());
-								//for (int i = 0; i <= channel.getUsers().size() -1; i++)
-								    //System.out.println(channel.getUsers().get(i).getName());
 								ie.userJoin(source.getName(), channelSource);
 						    }
 					    }
@@ -154,10 +151,6 @@ public class IRCClient {
 								channel = findChannelByName(channelSource);
 								channel.delUser(source);
 								ie.userPart(source.getName(), channelSource);
-								//System.out.println("Just removed " + source.getName() + " from channel " +channel.getName());
-								//System.out.println("users in channel:" + channel.getUsers().size());
-								//for (int i = 0; i <= channel.getUsers().size() -1; i++)
-								    //System.out.println(channel.getUsers().get(i).getName());
 						    }
 					    }
 					    else if(command.equals("QUIT")) {// User or Me joins channel
@@ -200,11 +193,9 @@ public class IRCClient {
 		    userList.add(user);
 		}
 		public void delUser(User user) {
-		    User tempUser = new User("");
 		    for (int i = 0; i <= userList.size() -1; i++) {
-			tempUser = userList.get(i);
-			if (userList.get(i).getName().equals(user.getName()))
-			    userList.remove(userList.get(i));
+				if (userList.get(i).getName().equals(user.getName()))
+				    userList.remove(userList.get(i));
 		    }
 		}
 		public String getName() {

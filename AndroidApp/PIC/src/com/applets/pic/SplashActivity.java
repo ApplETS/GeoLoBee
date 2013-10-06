@@ -2,10 +2,8 @@ package com.applets.pic;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -31,7 +29,7 @@ public class SplashActivity extends Activity {
 		
 		setContentView(R.layout.activity_splash);
 		
-		infosProvider = new InfosServerProvider((LocationManager)getSystemService(Context.LOCATION_SERVICE));
+		infosProvider = new InfosServerProvider(getApplicationContext());
 		
 		nameEdit = (EditText)findViewById(R.id.editName);
 

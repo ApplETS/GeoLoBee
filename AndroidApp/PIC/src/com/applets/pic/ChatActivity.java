@@ -1,14 +1,7 @@
 package com.applets.pic;
 
-import com.applets.pic.irc.IRCClient;
-import com.applets.pic.irc.IRCConnecter;
-import com.applets.pic.irc.IRCEvent;
-import com.applets.pic.irc.IWaitingIRCClientCreated;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,6 +19,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.applets.pic.irc.IRCClient;
+import com.applets.pic.irc.IRCConnecter;
+import com.applets.pic.irc.IRCEvent;
+import com.applets.pic.irc.IWaitingIRCClientCreated;
 
 public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClientCreated{
 
@@ -90,9 +88,7 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 	@Override
 	public void registrationComplete() {
 		if(ircClient != null) {
-			//ircClient.join(availableChannels[0]);
-			currentChannel = "foobar";
-			ircClient.join(currentChannel);
+			ircClient.join(availableChannels[0]);
 			clientIsReadyToJoin = false;
 			sendButton.setOnClickListener(new SendbuttonOnClickListener());
 		}
