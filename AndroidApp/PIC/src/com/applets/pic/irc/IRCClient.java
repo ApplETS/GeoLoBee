@@ -60,17 +60,24 @@ public class IRCClient {
     }
 
     public void join(String channel) {
-    	send("JOIN " + channel);
+    	send("JOIN #" + channel);
     }
 
+    public void part(String channel) {
+    	send("PART #" + channel);
+    }
+    
     public void sendMessage(String channel, String message) {
-    	send("PRIVMSG "+channel+" :"+message);
+    	send("PRIVMSG #"+channel+" :"+message);
     }
 
     public User parseEventSource(String source) {
 		User sourceUser;
-		String tempUserData[] = source.split(":")[1].split("!");
-		sourceUser = new User(tempUserData[0]);
+		String tempUserData = source.split(":")[1];
+		if (tempUserData.indexOf('!') >= 0) {
+			sourceUser = new User(tempUserData.split("!")[0]);
+		} else
+			sourceUser = new User(tempUserData);
 		return sourceUser;
     }
 
@@ -102,6 +109,7 @@ public class IRCClient {
 				while ((input = reader.readLine()) != null) {
 				    //System.out.println("<"+input);
 				    String arr[] = input.split(" ");
+				    
 				    if (arr[0].equals("PING")) {
 				    	send("PONG " + input.substring(5));
 				    } else {
@@ -113,7 +121,7 @@ public class IRCClient {
 						    channelSource = arr[2];
 						    channel = findChannelByName(channelSource);
 						    int beginningOfMessage = input.indexOf(':', 2);
-						    ie.messageRecieved(channel.getName(), source.getName(), input.substring(beginningOfMessage));
+						    ie.messageReceived(channel.getName(), source.getName(), input.substring(beginningOfMessage));
 						    //System.out.println("users in channel:" + channel.getUsers().size());
 						    //for (int i = 0; i <= channel.getUsers().size() -1; i++)
 							//System.out.println(channel.getUsers().get(i).getName());
@@ -171,12 +179,9 @@ public class IRCClient {
 						    //for (int i = 0; i <= channel.getUsers().size() -1; i++)
 						    	//System.out.println(channel.getUsers().get(i).getName());
 					    }
-					    else{
-						    ////System.out.println("unimplemented:" + command);
-						    break;
-						}
 				    }
 				}
+				System.out.println("instruction vide");
 		    } catch (Exception e) {
 		    	e.printStackTrace();
 		    }
@@ -212,6 +217,7 @@ public class IRCClient {
 		    userList.clear();
 		}
     }
+    
     public class User {
 		private String name;
 		// private String host;

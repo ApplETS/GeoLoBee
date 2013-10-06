@@ -47,8 +47,9 @@ public final class R {
         public static final int drawer_list_layout=0x7f030002;
         public static final int fragment_splash_dummy=0x7f030003;
         public static final int received_info_message=0x7f030004;
-        public static final int received_red_message=0x7f030005;
-        public static final int sent_message_text_view=0x7f030006;
+        public static final int received_message=0x7f030005;
+        public static final int received_red_message=0x7f030006;
+        public static final int sent_message_text_view=0x7f030007;
     }
     public static final class menu {
         public static final int chat=0x7f070000;
