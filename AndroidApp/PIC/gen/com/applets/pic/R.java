@@ -42,18 +42,20 @@ public final class R {
         public static final int text=0x7f08000c;
     }
     public static final class layout {
-        public static final int activity_chat=0x7f030000;
-        public static final int activity_splash=0x7f030001;
-        public static final int drawer_list_layout=0x7f030002;
-        public static final int fragment_splash_dummy=0x7f030003;
-        public static final int received_info_message=0x7f030004;
-        public static final int received_message=0x7f030005;
-        public static final int received_red_message=0x7f030006;
-        public static final int sent_message_text_view=0x7f030007;
+        public static final int activity_billboard=0x7f030000;
+        public static final int activity_chat=0x7f030001;
+        public static final int activity_splash=0x7f030002;
+        public static final int drawer_list_layout=0x7f030003;
+        public static final int fragment_splash_dummy=0x7f030004;
+        public static final int received_info_message=0x7f030005;
+        public static final int received_message=0x7f030006;
+        public static final int received_red_message=0x7f030007;
+        public static final int sent_message_text_view=0x7f030008;
     }
     public static final class menu {
-        public static final int chat=0x7f070000;
-        public static final int splash=0x7f070001;
+        public static final int billboard=0x7f070000;
+        public static final int chat=0x7f070001;
+        public static final int splash=0x7f070002;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -74,6 +76,7 @@ public final class R {
         public static final int logo=0x7f050009;
         public static final int nameHint=0x7f05000a;
         public static final int send=0x7f05000e;
+        public static final int title_activity_billboard=0x7f050019;
         public static final int title_activity_chat=0x7f05000d;
         public static final int title_activity_main=0x7f050006;
         public static final int title_activity_splash=0x7f050008;
