@@ -34,7 +34,7 @@
             android:label="@string/title_activity_chat" >
         </activity>
         <activity
-            android:name="com.applets.pic.Billboard"
+            android:name="com.applets.pic.BillboardActivity"
             android:label="@string/title_activity_billboard" >
         </activity>
     </application>

@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-public class Billboard extends Activity {
+public class BillboardActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
