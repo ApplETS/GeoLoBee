@@ -2,6 +2,8 @@ package com.applets.pic;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -161,6 +163,7 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 		}
 	}
 	
+	
 	private void selectItem(int position) {
         this.messagesLayout.removeAllViews();
         ircClient.part(currentChannel);
@@ -196,7 +199,8 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-			selectItem(position);			
+			selectItem(position);
+			Log.i("allo", position+"");
 		}	
 	}
 	

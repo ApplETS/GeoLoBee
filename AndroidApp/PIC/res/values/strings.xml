@@ -27,5 +27,7 @@
     <string name="irc_join">You have joined channel %1.</string>
     <string name="irc_part">You have left channel %1.</string>
     <string name="title_activity_billboard">Billboard</string>
+    <string name="billboard">Billboard</string>
+    <string name="chat">Chat</string>
 
 </resources>

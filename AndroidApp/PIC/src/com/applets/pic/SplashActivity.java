@@ -41,7 +41,7 @@ public class SplashActivity extends Activity {
 				if(nameEdit.getText().toString()!= null && !nameEdit.getText().toString().trim().isEmpty()){
 					String[] availableChannels = infosProvider.getClosestServerInfos();
 					if(availableChannels != null && availableChannels.length > 0) {
-						Intent intent = new Intent(SplashActivity.this, ChatActivity.class);
+						Intent intent = new Intent(SplashActivity.this, BillboardActivity.class);
 						Bundle extras = new Bundle();
 						extras.putStringArray("CHANNELS", availableChannels);
 						extras.putString("DISPLAY_NAME", nameEdit.getText().toString());

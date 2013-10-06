@@ -29,10 +29,12 @@ if(isset($_GET["method"])){
             $picture = NULL;
         }
         $dateToKill = $_GET["date_to_kill"];
-        print createPost($dbh, $creator, $content, $picture, $dateToKill);
+	$institution_id = $_GET["institution_id"];
+        print createPost($dbh, $creator, $content, $picture, $dateToKill, $institution_id);
     }
     elseif($method === "getPosts") {
-        print getPosts($dbh);
+		$channel_name = $_GET["channel_name"];
+        print getPosts($dbh, $channel_name);
     }
 }
 
@@ -187,7 +189,7 @@ function createSubChannel($dbh, $channel_name, $sub_channel_name) {
  ************************************************************************/
 
 //Creates a post on the billboard with a date to kill it
-function createPost($dbh, $creator, $content, $picture, $dateToKill) {
+function createPost($dbh, $creator, $content, $picture, $dateToKill, $institution_id) {
         //If a picture was sent, we transform the picture to make it uploadable in the database
         if($picture != NULL) {
             $pSize = filesize($picture);
@@ -198,23 +200,33 @@ function createPost($dbh, $creator, $content, $picture, $dateToKill) {
             $mysqlPicture = NULL;
         }
         //We add the post
-        $sql = "INSERT INTO POSTS (creator, content, picture, dateToKill) VALUES (:creator,:content,:picture,:dateToKill)";
+        $sql = "INSERT INTO POSTS (institution_id, creator, content, picture, dateToKill) VALUES (:institution_id,:creator,:content,:picture,:dateToKill)";
                      $sth = $dbh->prepare($sql);
-                     $sth->execute(array(':creator'=>$creator,
+                     $sth->execute(array(':institution_id'=>$institution_id,
+										':creator'=>$creator,
                                        ':content'=>$content,
                                        ':picture'=>$mysqlPicture,
                                        ':dateToKill'=>$dateToKill));
 }
 
 //Returns the posts that can be shown
-function getPosts($dbh) {
-    $sth = $dbh->query('SELECT creator, content, picture, dateToKill FROM POSTS WHERE dateToKill > NOW();');
+function getPosts($dbh, $channel_name) {
+	$institution_id = getInstitutionIdByName($dbh, $channel_name);
 
-    $rows = array();
-    while($r = $sth->fetch(PDO::FETCH_ASSOC)) {
-        $rows[] = $r;
-    }
-    return json_encode($rows);
+	if($institution_id !== -1){
+		$sth = $dbh->prepare('SELECT creator, content, picture, dateToKill FROM POSTS WHERE dateToKill > NOW() AND institution_id = ?');
+		$sth->bindParam(1, $institution_id, PDO::PARAM_INT);
+		$sth->execute();
+		
+		$rows = array();
+		while($r = $sth->fetch(PDO::FETCH_ASSOC)) {
+		    $rows[] = $r;
+		}
+
+		return json_encode($rows);
+	}
+
+	return "[]";
 }
 
  /************************************************************************
