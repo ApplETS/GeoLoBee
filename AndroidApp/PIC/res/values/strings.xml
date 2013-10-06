@@ -21,5 +21,10 @@
     <string name="error_connection_infos_server_title">Connection Error</string>
     <string name="error_connection_infos_server_timeout">The connection to the dispatch server has timed out. Please try again later.</string>
     <string name="error_connection_infos_server_unknown">The connection to the dispatch server has failed for an unknown reason. Please try again later.</string>
+    <string name="irc_user_part">User %1 has left the channel.</string>
+    <string name="irc_user_quit">User %1 has left the server.</string>
+    <string name="irc_user_join">User %1 has joined the channel.</string>
+    <string name="irc_join">You have joined channel %1.</string>
+    <string name="irc_part">You have left channel %1.</string>
 
 </resources>

@@ -26,73 +26,7 @@
 	            android:id="@+id/layoutListView"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content" 
-	            android:orientation="vertical">
-	
-	            <TextView
-	                style="@style/messageReceived"
-	                android:id="@+id/messageReceived"
-	                android:text="MessageReceived" />
-	
-	            <TextView
-	                style="@style/messageSent"
-	                android:id="@+id/messageSent"
-	                android:text="MessageSent" />
-	            <TextView
-	                style="@style/messageReceived"
-	                android:id="@+id/messageReceived"
-	                android:text="MessageReceived" />
-	
-	            <TextView
-	                style="@style/messageSent"
-	                android:id="@+id/messageSent"
-	                android:text="MessageSent" />
-	            <TextView
-	                style="@style/messageReceived"
-	                android:id="@+id/messageReceived"
-	                android:text="MessageReceived" />
-	
-	            <TextView
-	                style="@style/messageSent"
-	                android:id="@+id/messageSent"
-	                android:text="MessageSent" />
-	            <TextView
-	                style="@style/messageReceived"
-	                android:id="@+id/messageReceived"
-	                android:text="MessageReceived" />
-	
-	            <TextView
-	                style="@style/messageSent"
-	                android:id="@+id/messageSent"
-	                android:text="MessageSent" />
-	            <TextView
-	                style="@style/messageReceived"
-	                android:id="@+id/messageReceived"
-	                android:text="MessageReceived" />
-	
-	            <TextView
-	                style="@style/messageSent"
-	                android:id="@+id/messageSent"
-	                android:text="MessageSent" />
-	            <TextView
-	                style="@style/messageReceived"
-	                android:id="@+id/messageReceived"
-	                android:text="MessageReceived" />
-	
-	            <TextView
-	                style="@style/messageSent"
-	                android:id="@+id/messageSent"
-	                android:text="MessageSent" />
-	            <TextView
-	                style="@style/messageReceived"
-	                android:id="@+id/messageReceived"
-	                android:text="MessageReceived" />
-	
-	            <TextView
-	                style="@style/messageSent"
-	                android:id="@+id/messageSent"
-	                android:text="MessageSent" />
-	
-	        </LinearLayout>
+	            android:orientation="vertical" />
 	    </ScrollView>
 	
 	    <LinearLayout

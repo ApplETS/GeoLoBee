@@ -24,28 +24,29 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000f;
-        public static final int buttonConnect=0x7f08000b;
-        public static final int buttonSend=0x7f080006;
+        public static final int action_settings=0x7f08000d;
+        public static final int buttonConnect=0x7f080009;
+        public static final int buttonSend=0x7f080004;
         public static final int drawer_layout=0x7f080000;
-        public static final int editMessage=0x7f080005;
-        public static final int editName=0x7f08000a;
-        public static final int labelWarning=0x7f08000c;
+        public static final int editMessage=0x7f080003;
+        public static final int editName=0x7f080008;
+        public static final int labelWarning=0x7f08000a;
         public static final int layoutListView=0x7f080002;
-        public static final int layoutMain=0x7f080008;
-        public static final int left_drawer=0x7f080007;
-        public static final int messageReceived=0x7f080003;
-        public static final int messageSent=0x7f080004;
+        public static final int layoutMain=0x7f080006;
+        public static final int left_drawer=0x7f080005;
         public static final int scrollView1=0x7f080001;
-        public static final int section_label=0x7f08000e;
-        public static final int splashImage=0x7f080009;
-        public static final int text=0x7f08000d;
+        public static final int section_label=0x7f08000c;
+        public static final int splashImage=0x7f080007;
+        public static final int text=0x7f08000b;
     }
     public static final class layout {
         public static final int activity_chat=0x7f030000;
         public static final int activity_splash=0x7f030001;
         public static final int drawer_list_layout=0x7f030002;
         public static final int fragment_splash_dummy=0x7f030003;
+        public static final int received_info_message=0x7f030004;
+        public static final int received_red_message=0x7f030005;
+        public static final int sent_message_text_view=0x7f030006;
     }
     public static final class menu {
         public static final int chat=0x7f070000;
@@ -62,6 +63,11 @@ public final class R {
         public static final int error_no_display_name_title=0x7f050010;
         public static final int findServer=0x7f05000c;
         public static final int hello_world=0x7f050007;
+        public static final int irc_join=0x7f050017;
+        public static final int irc_part=0x7f050018;
+        public static final int irc_user_join=0x7f050016;
+        public static final int irc_user_part=0x7f050014;
+        public static final int irc_user_quit=0x7f050015;
         public static final int logo=0x7f050009;
         public static final int nameHint=0x7f05000a;
         public static final int send=0x7f05000e;
