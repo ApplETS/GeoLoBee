@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.applets.pic.irc.IRCClient;
@@ -78,6 +77,7 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 		return true;
 	}
 	
+	@SuppressWarnings("unused")
 	private void showServerUnknownError() {
 		// Unknown exception
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
