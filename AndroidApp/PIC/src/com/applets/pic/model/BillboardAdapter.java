@@ -1,4 +1,4 @@
-package com.applets.model;
+package com.applets.pic.model;
 
 import android.app.Activity;
 import android.content.Context;

@@ -17,10 +17,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.applets.model.BillboardAdapter;
-import com.applets.model.Post;
 import com.applets.pic.http.HttpReader;
 import com.applets.pic.http.InfosServerProvider;
+import com.applets.pic.model.BillboardAdapter;
+import com.applets.pic.model.Post;
 
 public class BillboardActivity extends Activity {
 	private ArrayList<Post> posts;
