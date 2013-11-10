@@ -79,7 +79,7 @@ public class BillboardActivity extends Activity {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		ArrayList<Post> posts = new ArrayList<Post>();
 		
-		HttpReader task = (HttpReader)new HttpReader().execute("http://18.111.95.249/php/api.php?method=getPosts&channel_name=" + channel_name);
+		HttpReader task = (HttpReader)new HttpReader().execute("http://clubapplets.ca/checkinchat/api.php?method=getPosts&channel_name=" + channel_name);
 		String serverInfos;
 		try {
 			serverInfos = task.get(15, TimeUnit.SECONDS);

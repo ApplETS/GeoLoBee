@@ -45,9 +45,9 @@ if(isset($_GET["method"])){
 
 function createConnection() {
     // Connects to your Database
-    $dsn = 'mysql:host=localhost;dbname=PUBLICINSTITUTIONCHAT';
-    $username = 'root';
-    $password = 'publicchat';
+    $dsn = 'mysql:host=localhost;dbname=CHECKINCHAT';
+    $username = 'checkinchat';
+    $password = 'tX(Dmbs9i&dn^T>lZC6y13|B7ON+PH';
     $options = array(
         PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
     );

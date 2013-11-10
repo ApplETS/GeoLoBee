@@ -34,10 +34,34 @@ public class SplashActivity extends Activity {
 		nameEdit = (EditText)findViewById(R.id.editName);
 
 		connectButton = (Button)findViewById(R.id.buttonConnect);
-		connectButton.setOnClickListener(new OnClickListener(){
-
+		connectButton.setOnClickListener(new Listener());
+	}
+	
+	private void showServerUnknownError() {
+		// Unknown exception
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.setTitle(getResources().getString(R.string.error_connection_infos_server_title));
+		alertDialog.setMessage(getResources().getString(R.string.error_connection_infos_server_unknown));
+		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+			
 			@Override
-			public void onClick(View arg0) {
+			public void onClick(DialogInterface arg0, int arg1) {
+			}
+		});
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.splash, menu);
+		return true;
+	}
+	
+	private class Listener implements OnClickListener{
+
+		@Override
+		public void onClick(View arg0) {
+			if(arg0.getId() == connectButton.getId()){
 				if(nameEdit.getText().toString()!= null && !nameEdit.getText().toString().trim().isEmpty()){
 					String[] availableChannels = infosProvider.getClosestServerInfos();
 					if(availableChannels != null && availableChannels.length > 0) {
@@ -64,30 +88,13 @@ public class SplashActivity extends Activity {
 						}
 					});
 					alertDialog.show();
-					
+
 				}
 			}
-		});
-	}
-	
-	private void showServerUnknownError() {
-		// Unknown exception
-		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-		alertDialog.setTitle(getResources().getString(R.string.error_connection_infos_server_title));
-		alertDialog.setMessage(getResources().getString(R.string.error_connection_infos_server_unknown));
-		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface arg0, int arg1) {
-			}
-		});
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.splash, menu);
-		return true;
+		}
+		
+		
+		
 	}
 
 }
