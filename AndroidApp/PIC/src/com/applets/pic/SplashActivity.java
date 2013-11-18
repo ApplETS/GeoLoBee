@@ -48,6 +48,7 @@ public class SplashActivity extends Activity {
 			public void onClick(DialogInterface arg0, int arg1) {
 			}
 		});
+		alertDialog.show();
 	}
 	
 	@Override
