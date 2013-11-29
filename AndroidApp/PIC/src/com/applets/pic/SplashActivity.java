@@ -42,17 +42,17 @@ public class SplashActivity extends Activity {
 		connectButton.setOnClickListener(new Listener());
 	}
 	
-	private void showServerUnknownError() {
-		// Unknown exception
+	private void showErrorMessage(String title , String msg){
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-		alertDialog.setTitle(getResources().getString(R.string.error_connection_infos_server_title));
-		alertDialog.setMessage(getResources().getString(R.string.error_connection_infos_server_unknown));
+		alertDialog.setTitle(title);
+		alertDialog.setMessage(msg);
 		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
 			}
 		});
+		alertDialog.show();
 	}
 	
 	@Override
@@ -86,27 +86,38 @@ public class SplashActivity extends Activity {
 		public void onClick(View arg0) {
 			if(arg0.getId() == connectButton.getId()){
 				if(nameEdit.getText().toString()!= null && !nameEdit.getText().toString().trim().isEmpty()){
+<<<<<<< HEAD
 					name = nameEdit.getText().toString();
 					connection();
+=======
+					String[] availableChannels = infosProvider.getClosestServerInfos();
+					if(availableChannels != null && availableChannels.length > 0) {
+						Intent intent = new Intent(SplashActivity.this, BillboardActivity.class);
+						Bundle extras = new Bundle();
+						extras.putStringArray("CHANNELS", availableChannels);
+						extras.putString("DISPLAY_NAME", nameEdit.getText().toString());
+						intent.putExtras(extras);
+						startActivity(intent);
+					}
+					else if(!infosProvider.getLocationServiceAvailable()){
+						showErrorMessage(getResources().getString(R.string.error_location_service_disabled_title),
+									 		 getResources().getString(R.string.error_location_service_disabled));
+					}
+					else{
+						showErrorMessage(getResources().getString(R.string.error_connection_infos_server_title),
+								 getResources().getString(R.string.error_connection_infos_server_unknown));
+					}
+>>>>>>> 36ae40bcf690be65a121db1d3c420a1925b20a1d
 				}
 				else{
-					AlertDialog alertDialog = new AlertDialog.Builder(SplashActivity.this).create();
-					alertDialog.setTitle(getResources().getString(R.string.error_no_display_name_title));
-					alertDialog.setMessage(getResources().getString(R.string.error_no_display_name));
-					alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							SplashActivity.this.nameEdit.requestFocus();
-						}
-					});
-					alertDialog.show();
-
+					showErrorMessage(getResources().getString(R.string.error_no_display_name_title),
+									 getResources().getString(R.string.error_no_display_name));
 				}
 			}
+		
+		
+		
 		}
-		
-		
-		
 	}
 
 }

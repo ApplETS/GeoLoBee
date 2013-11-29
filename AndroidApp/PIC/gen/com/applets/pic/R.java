@@ -73,6 +73,8 @@ public final class R {
         public static final int error_connection_infos_server_timeout=0x7f050012;
         public static final int error_connection_infos_server_title=0x7f050011;
         public static final int error_connection_infos_server_unknown=0x7f050013;
+        public static final int error_location_service_disabled=0x7f05001d;
+        public static final int error_location_service_disabled_title=0x7f05001c;
         public static final int error_no_display_name=0x7f05000f;
         public static final int error_no_display_name_title=0x7f050010;
         public static final int hello_world=0x7f050007;

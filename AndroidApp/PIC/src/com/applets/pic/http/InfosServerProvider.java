@@ -111,9 +111,23 @@ public class InfosServerProvider {
 	}
 
 	public String[] getClosestServerInfos() {
+<<<<<<< HEAD
 		Location location = getBestLocation();		
 		HttpReader task = (HttpReader)new HttpReader().execute("http://clubapplets.ca/checkinchat/api.php?method=getDefaultChannel&lat=" + location.getLatitude() + "&lon=" + location.getLongitude());
+=======
+		Location location = getBestLocation();
+		Log.i("allo", location + "");
+		HttpReader task = null;
+>>>>>>> 36ae40bcf690be65a121db1d3c420a1925b20a1d
 		ArrayList<String> availableChannels = new ArrayList<String>();
+		
+		try{
+			task = (HttpReader)new HttpReader().execute("http://clubapplets.ca/checkinchat/api.php?method=getDefaultChannel&lat=" + location.getLatitude() + "&lon=" + location.getLongitude());
+		}
+		catch(NullPointerException e){
+			return null;
+		}
+		
 		String serverInfos;
 		try {
 			serverInfos = task.get(15, TimeUnit.SECONDS);
@@ -134,6 +148,11 @@ public class InfosServerProvider {
 		return (String[]) availableChannels.toArray(new String[availableChannels.size()]);
 	}
 	
+	public boolean getLocationServiceAvailable(){
+		LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+		
+		return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+	}
 //	public String[] getSubChannels(String channel) {
 //		
 //	}
