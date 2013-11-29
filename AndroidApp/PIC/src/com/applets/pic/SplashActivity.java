@@ -13,12 +13,16 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.applets.pic.http.InfosServerProvider;
+import com.applets.pic.http.LocationProvider;
 
 public class SplashActivity extends Activity {
 
 	private Button connectButton;
 	private EditText nameEdit;	
-	private InfosServerProvider infosProvider;
+	private LocationProvider locationProvider;
+	private String[] availableChannels;
+	private String name;
+	private String firstChannel;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +33,8 @@ public class SplashActivity extends Activity {
 		
 		setContentView(R.layout.activity_splash);
 		
-		infosProvider = new InfosServerProvider(getApplicationContext());
+		firstChannel = "";
+		locationProvider = new LocationProvider(this);
 		
 		nameEdit = (EditText)findViewById(R.id.editName);
 
@@ -57,25 +62,32 @@ public class SplashActivity extends Activity {
 		return true;
 	}
 	
+	public void connection(){
+		availableChannels = locationProvider.getClosestServerInfos();
+		if(availableChannels != null && availableChannels.length > 0)  {
+			if(name != null && !firstChannel.equals(availableChannels[0])){				
+				Intent intent = new Intent(SplashActivity.this, BillboardActivity.class);
+				Bundle extras = new Bundle();
+				extras.putStringArray("CHANNELS", availableChannels);
+				extras.putString("DISPLAY_NAME", name);
+				intent.putExtras(extras);
+				startActivity(intent);
+			}
+		}
+		else
+		{
+			showServerUnknownError();
+		}
+	}
+	
 	private class Listener implements OnClickListener{
 
 		@Override
 		public void onClick(View arg0) {
 			if(arg0.getId() == connectButton.getId()){
 				if(nameEdit.getText().toString()!= null && !nameEdit.getText().toString().trim().isEmpty()){
-					String[] availableChannels = infosProvider.getClosestServerInfos();
-					if(availableChannels != null && availableChannels.length > 0) {
-						Intent intent = new Intent(SplashActivity.this, BillboardActivity.class);
-						Bundle extras = new Bundle();
-						extras.putStringArray("CHANNELS", availableChannels);
-						extras.putString("DISPLAY_NAME", nameEdit.getText().toString());
-						intent.putExtras(extras);
-						startActivity(intent);
-					}
-					else
-					{
-						showServerUnknownError();
-					}
+					name = nameEdit.getText().toString();
+					connection();
 				}
 				else{
 					AlertDialog alertDialog = new AlertDialog.Builder(SplashActivity.this).create();

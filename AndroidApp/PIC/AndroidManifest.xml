@@ -33,6 +33,7 @@
         <activity
             android:name="com.applets.pic.ChatActivity"
             android:screenOrientation="portrait"
+            android:excludeFromRecents="true"
             android:label="@string/title_activity_chat" >
         </activity>
         <activity

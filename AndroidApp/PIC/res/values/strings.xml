@@ -9,7 +9,7 @@
     <string name="displayNameLabel">Display Name :</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_splash">GeoLoBee</string>
+    <string name="title_activity_splash">CheckIn-Chat</string>
     <string name="logo">Logo</string>
     <string name="nameHint">Enter your username</string>
     <string name="warning_label">We are not responsible for anything said in the chats. Please be respectful and avoid offensive comments.</string>

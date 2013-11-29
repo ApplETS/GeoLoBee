@@ -181,7 +181,7 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
         getActionBar().setTitle(currentChannel);
     }
 	
-	private void ShowSentMessage(String message) {
+	private void showSentMessage(String message) {
 		String messageStr = displayName + ": " + message;
 		Log.i("IRC", "Sent message: " + message);
 		LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -209,7 +209,6 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 			selectItem(position);
-			Log.i("allo", position+"");
 		}	
 	}
 	
@@ -219,7 +218,7 @@ public class ChatActivity extends Activity implements IRCEvent, IWaitingIRCClien
 		public void onClick(View arg0) {
 			String message = editMessageBlock.getText().toString();
 			ircClient.sendMessage(currentChannel, message);
-			ShowSentMessage(message);
+			showSentMessage(message);
 			editMessageBlock.setText("");
 		}
 		

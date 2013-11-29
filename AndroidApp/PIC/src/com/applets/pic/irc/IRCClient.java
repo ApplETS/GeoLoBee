@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class IRCClient {
     private final String SERVER = "irc.clubapplets.ca";
-    private final int PORT = 80;
-    private String my_username = "myself";
+    private final int PORT = 8080;
+    private String my_username;
 
     private BufferedWriter writer;
     private BufferedReader reader;

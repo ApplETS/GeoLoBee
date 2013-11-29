@@ -111,8 +111,7 @@ public class InfosServerProvider {
 	}
 
 	public String[] getClosestServerInfos() {
-		Location location = getBestLocation();
-		Log.i("allo", location + "");
+		Location location = getBestLocation();		
 		HttpReader task = (HttpReader)new HttpReader().execute("http://clubapplets.ca/checkinchat/api.php?method=getDefaultChannel&lat=" + location.getLatitude() + "&lon=" + location.getLongitude());
 		ArrayList<String> availableChannels = new ArrayList<String>();
 		String serverInfos;
