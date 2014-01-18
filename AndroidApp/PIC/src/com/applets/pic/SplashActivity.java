@@ -12,7 +12,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.applets.pic.http.InfosServerProvider;
 import com.applets.pic.http.LocationProvider;
 
 public class SplashActivity extends Activity {
@@ -71,12 +70,13 @@ public class SplashActivity extends Activity {
 				extras.putStringArray("CHANNELS", availableChannels);
 				extras.putString("DISPLAY_NAME", name);
 				intent.putExtras(extras);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 			}
 		}
 		else
 		{
-			showServerUnknownError();
+			showErrorMessage("Erreur", "Aucun channel trouvé");
 		}
 	}
 	
@@ -86,28 +86,8 @@ public class SplashActivity extends Activity {
 		public void onClick(View arg0) {
 			if(arg0.getId() == connectButton.getId()){
 				if(nameEdit.getText().toString()!= null && !nameEdit.getText().toString().trim().isEmpty()){
-<<<<<<< HEAD
 					name = nameEdit.getText().toString();
-					connection();
-=======
-					String[] availableChannels = infosProvider.getClosestServerInfos();
-					if(availableChannels != null && availableChannels.length > 0) {
-						Intent intent = new Intent(SplashActivity.this, BillboardActivity.class);
-						Bundle extras = new Bundle();
-						extras.putStringArray("CHANNELS", availableChannels);
-						extras.putString("DISPLAY_NAME", nameEdit.getText().toString());
-						intent.putExtras(extras);
-						startActivity(intent);
-					}
-					else if(!infosProvider.getLocationServiceAvailable()){
-						showErrorMessage(getResources().getString(R.string.error_location_service_disabled_title),
-									 		 getResources().getString(R.string.error_location_service_disabled));
-					}
-					else{
-						showErrorMessage(getResources().getString(R.string.error_connection_infos_server_title),
-								 getResources().getString(R.string.error_connection_infos_server_unknown));
-					}
->>>>>>> 36ae40bcf690be65a121db1d3c420a1925b20a1d
+					connection();					
 				}
 				else{
 					showErrorMessage(getResources().getString(R.string.error_no_display_name_title),

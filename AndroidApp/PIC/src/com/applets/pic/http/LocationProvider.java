@@ -36,6 +36,7 @@ public class LocationProvider implements LocationListener {
     }
     
     public String[] getClosestServerInfos() {	
+    	System.out.println(location);
 		HttpReader task = (HttpReader)new HttpReader().execute("http://clubapplets.ca/checkinchat/api.php?method=getDefaultChannel&lat=" + location.getLatitude() + "&lon=" + location.getLongitude());
 		ArrayList<String> availableChannels = new ArrayList<String>();
 		String serverInfos;

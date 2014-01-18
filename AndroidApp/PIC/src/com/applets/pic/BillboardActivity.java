@@ -18,13 +18,11 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.applets.pic.http.HttpReader;
-import com.applets.pic.http.InfosServerProvider;
 import com.applets.pic.model.BillboardAdapter;
 import com.applets.pic.model.Post;
 
 public class BillboardActivity extends Activity {
 	private ArrayList<Post> posts;
-	private InfosServerProvider infosProvider;
 	private ListView listBillboard;
 	private String[] availableChannels;
 	private String displayName;
@@ -37,7 +35,6 @@ public class BillboardActivity extends Activity {
 		displayName = getIntent().getExtras().getString("DISPLAY_NAME");
 		availableChannels = getIntent().getExtras().getStringArray("CHANNELS");
 		
-		infosProvider = new InfosServerProvider(getApplicationContext());
 		refreshPosts();
 		
 		connectButton = (Button)findViewById(R.id.buttonChat);
@@ -63,7 +60,6 @@ public class BillboardActivity extends Activity {
 	}
 	
 	private void refreshPosts(){
-		availableChannels = infosProvider.getClosestServerInfos();
 		if(availableChannels != null && availableChannels.length > 0) {
 			posts = getPosts(availableChannels[0]);
 			BillboardAdapter adapter = new BillboardAdapter(this, R.layout.post_message, posts.toArray(new Post[posts.size()]));
