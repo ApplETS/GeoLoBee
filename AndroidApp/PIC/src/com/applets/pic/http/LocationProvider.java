@@ -27,7 +27,8 @@ public class LocationProvider implements LocationListener {
         mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 500, this);
 
-        Location location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        
         if(location != null && location.getTime() > Calendar.getInstance().getTimeInMillis() - 2 * 60 * 1000) {
             // Do something with the recent location fix 
             //  if it is less than two minutes old,
@@ -35,29 +36,32 @@ public class LocationProvider implements LocationListener {
         }
     }
     
-    public String[] getClosestServerInfos() {	
-    	System.out.println(location);
-		HttpReader task = (HttpReader)new HttpReader().execute("http://clubapplets.ca/checkinchat/api.php?method=getDefaultChannel&lat=" + location.getLatitude() + "&lon=" + location.getLongitude());
-		ArrayList<String> availableChannels = new ArrayList<String>();
-		String serverInfos;
-		try {
-			serverInfos = task.get(15, TimeUnit.SECONDS);
-			if(serverInfos != null && !serverInfos.isEmpty()) {
-				JSONArray recs = new JSONArray(serverInfos);
-				
-				for (int i = 0; i < recs.length(); ++i) {
-				    JSONObject rec = recs.getJSONObject(i);
-				    availableChannels.add(rec.getString("name"));
-				}
-				return (String[]) availableChannels.toArray(new String[availableChannels.size()]);
-			}
-		} catch (TimeoutException e) {
-			e.printStackTrace();
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return (String[]) availableChannels.toArray(new String[availableChannels.size()]);
-	}
+    public String[] getClosestServerInfos() {
+    	if(location != null){
+    		HttpReader task = (HttpReader)new HttpReader().execute("http://clubapplets.ca/checkinchat/api.php?method=getDefaultChannel&lat=" + location.getLatitude() + "&lon=" + location.getLongitude());
+    		ArrayList<String> availableChannels = new ArrayList<String>();
+    		String serverInfos;
+    		try {
+    			serverInfos = task.get(15, TimeUnit.SECONDS);
+    			if(serverInfos != null && !serverInfos.isEmpty()) {
+    				JSONArray recs = new JSONArray(serverInfos);
+
+    				for (int i = 0; i < recs.length(); ++i) {
+    					JSONObject rec = recs.getJSONObject(i);
+    					availableChannels.add(rec.getString("name"));
+    				}
+    				return (String[]) availableChannels.toArray(new String[availableChannels.size()]);
+    			}
+    		} catch (TimeoutException e) {
+    			e.printStackTrace();
+    		}catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    		return (String[]) availableChannels.toArray(new String[availableChannels.size()]);
+    	}
+    	
+    	return null;
+    }
 
     public void onLocationChanged(Location location) {
         if (location != null) {
